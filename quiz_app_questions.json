@@ -1,0 +1,62 @@
+[
+	{
+		"question": "Who created Flutter?",
+		"options": [ "Facebook", "Adobe", "Google", "Microsoft" ],
+		"answer": "Google"
+	},
+	{
+		"question": "What is Flutter?",
+		"options": [
+			"Android Development Kit",
+			"IOS Development Kit",
+			"Web Development Kit",
+			"SDK to build beautiful IOS, Android, Web & Desktop Native Apps"
+		],
+		"answer": "SDK to build beautiful IOS, Android, Web & Desktop Native Apps"
+	},
+	{
+		"question": "Which programing language is used by Flutter",
+		"options": [ "Ruby", "Dart", "C++", "Kotlin" ],
+		"answer": "Dart"
+	},
+	{
+		"question": "How many programming languages are in use?",
+		"options": [ "20", "50", "2000", "5000" ],
+		"answer": "2000"
+	},
+	{
+		"question": "Who founded Apple Computer?",
+		"options": [ "Steve Jobs", "Sheryl Sandberg", "Bill Gates", "Sundar Pichai" ],
+		"answer": "Steve Jobs"
+	},
+	{
+		"question": "Which of these is not a peripheral, in computer terms?",
+		"options": [ "Keyboard", "Mouse", "Motherboard", "Monitor" ],
+		"answer": "Motherboard"
+	},
+	{
+		"question": "Which of these is not a peripheral, in computer terms?",
+		"options": [ "Keyboard", "Mouse", "Motherboard", "Monitor" ],
+		"answer": "Motherboard"
+	},
+	{
+		"question": "A network designed to allow communication within an organization is called:",
+		"options": [ "the Internet", "the Intranet", "a browser", "the World Wide Web" ],
+		"answer": "the Intranet"
+	},
+	{
+		"question": "Who created Dart programing language?",
+		"options": [ "Lars Bak and Kasper Lund", "Brendan Eich", "Bjarne Stroustrup", "Jeremy Ashkenas" ],
+		"answer": "Lars Bak and Kasper Lund"
+	},
+	{
+		"question": "Is Flutter for Desktop stable?",
+		"options": [ "Yes", "No" ],
+		"answer": "No"
+	},
+	{
+		"question": "Is Flutter for Web stable?",
+		"options": [ "Yes", "No" ],
+		"answer": "Yes"
+	}
+]
