@@ -14,7 +14,7 @@ Follow our simple [Installation Guide](https://appwrite.io/docs/installation) to
   
 We need to make a few configuration changes to your Appwrite server. 
 
-1. Add a new Flutter App (Android or iOS or both) in Appwrite and enter application id of your application (`localhost, <project-name>.vercel.app etc`)
+1. Add a new Flutter App (Android or iOS or both) in Appwrite and enter application id of your application (`io.appwrite.quiz` etc)
 ![Add Flutter App](https://user-images.githubusercontent.com/20852629/113019434-3c27c900-919f-11eb-997c-1da5a8303ceb.png)
 
 2. Create a new API Key from Api Keys section
