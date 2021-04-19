@@ -1,0 +1,24 @@
+name: flutter_appwrite_quizeee
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+# Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program.
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  appwrite: ^0.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  dart_appwrite: null
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
