@@ -56,7 +56,7 @@ Teach a man to program, frustrate him for a lifetime */
   String toString() {
     return 'Question(id: $id, question: $question, options: $options, answer: $answer)';
   }
-  /*  Code is like humor. When you have to explain it, it’s bad. */
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
