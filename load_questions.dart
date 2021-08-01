@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-// Java is to JavaScript what car is to Carpet.
+
 import 'package:dart_appwrite/dart_appwrite.dart';
 
 Client client = Client();
