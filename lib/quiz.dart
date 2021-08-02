@@ -40,7 +40,6 @@ class _QuizPageState extends State<QuizPage> {
           res.data['documents'].map((question) => Question.fromMap(question)));
       questions.shuffle();
     } on AppwriteException catch (e) {
-      /* Truth can only be found in one place: the code. */
       print(e);
     } finally {
       setState(() {
