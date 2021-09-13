@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(child: Image.asset('assets/appwrite.png')),
-          /* First, solve the problem. Then, write the code. */
           Expanded(
             child: MaterialButton(
               elevation: 0,
