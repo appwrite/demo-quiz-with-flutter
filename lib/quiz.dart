@@ -7,7 +7,7 @@ class QuizPage extends StatefulWidget {
   @override
   _QuizPageState createState() => _QuizPageState();
 }
-/* Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live */
+
 class _QuizPageState extends State<QuizPage> {
   List<Question> questions;
   bool loading;
