@@ -23,7 +23,7 @@ We need to make a few configuration changes to your Appwrite server.
 
 4. Run `flutter pub get` to get the dependencies and then run `load_questions.dart` using `dart <path_to_dir>/load_questions.dart`
 
-5. In the appwrite console in your project, it will create new collection, the collection id is also printed at the end of the script in the console. Get the id of that collection and update `lib/constants.dart` with your own `ednpoint`, `project id` and `collection id`
+5. In the appwrite console in your project, it will create a new collection, the collection id is also printed at the end of the script in the console. Get the id of that collection and update `lib/constants.dart` with your own `ednpoint`, `project id` and `collection id`
 
 ### 🚀 Run the Application
 First get the dependencies by running `flutter pub get`. Then you can run the application simply using `flutter run` command. It works on **Android**, **iOS** and **Web** platforms.
