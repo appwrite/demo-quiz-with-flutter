@@ -111,7 +111,6 @@ class _QuizPageState extends State<QuizPage> {
               : Container(
                   child: Text("Some error! Check console"),
                 ),
-      /* A language that doesn't affect the way you think about programming is not worth knowing. */
       bottomNavigationBar: (questions != null && questions.isNotEmpty)
           ? BottomAppBar(
               child: Container(
