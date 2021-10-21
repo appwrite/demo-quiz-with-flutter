@@ -151,7 +151,6 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
-  /* That's the thing about people who think they hate computers. What they really hate is lousy programmers. */
   _getColor(Question question, String option) {
     final answer = _answers[question.id];
     if (answer == null) return Colors.white;
