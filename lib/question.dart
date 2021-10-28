@@ -37,8 +37,6 @@ class Question {
     };
   }
 
-  /* Give a man a program, frustrate him for a day.
-Teach a man to program, frustrate him for a lifetime */
   factory Question.fromMap(Map<String, dynamic> map) {
     return Question(
       id: map['\$id'],
