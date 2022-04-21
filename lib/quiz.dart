@@ -36,8 +36,7 @@ class _QuizPageState extends State<QuizPage> {
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
       final res = await db.listDocuments(collectionId: AppConstsnts.collection);
-      questions = List<Question>.from(
-          res.data['documents'].map((question) => Question.fromMap(question)));
+      questions = res.convertTo<Question>((q) => Question.fromMap(q));
       questions.shuffle();
     } on AppwriteException catch (e) {
       print(e);
