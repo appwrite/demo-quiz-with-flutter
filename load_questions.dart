@@ -14,42 +14,28 @@ void main() async {
   final questions = jsonDecode(json.readAsStringSync());
 
   Database db = Database(client);
+  final collectionId = 'quiz_questions';
+  final res = await db.createCollection(
+      collectionId: collectionId,
+      name: "Quiz Questions",
+      permission: 'collection',
+      read: ["role:all"],
+      write: ["role:member"]);
 
-  final res = await db.createCollection(name: "Questions", read: [
-    "*"
-  ], write: [
-    "role:member"
-  ], rules: [
-    {
-      "type": "text",
-      "key": "question",
-      "label": "Question",
-      "default": "",
-      "array": false,
-      "required": true,
-    },
-    {
-      "type": "text",
-      "key": "options",
-      "label": "Options",
-      "default": "",
-      "array": true,
-      "required": true,
-    },
-    {
-      "type": "text",
-      "key": "answer",
-      "label": "Answer",
-      "default": "",
-      "array": false,
-      "required": true,
-    },
-  ]);
-
-  final collectionId = res.data['\$id'];
+  await db.createStringAttribute(
+      collectionId: collectionId, key: 'question', size: 255, xrequired: true);
+  await db.createStringAttribute(
+      collectionId: collectionId,
+      key: 'options',
+      size: 255,
+      xrequired: false,
+      array: true);
+  await db.createStringAttribute(
+      collectionId: collectionId, key: 'answer', size: 255, xrequired: true);
 
   for (final question in questions) {
     await db.createDocument(
+      documentId: "unique()",
         collectionId: collectionId,
         data: question,
         read: ['*'],
