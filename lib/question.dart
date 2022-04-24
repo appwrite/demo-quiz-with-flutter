@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class Question {
-  String id;
-  String question;
-  List<String> options;
-  String answer;
+  String? id;
+  String? question;
+  List<String>? options;
+  String? answer;
   Question({
     this.id,
     this.question,
@@ -15,10 +15,10 @@ class Question {
   });
 
   Question copyWith({
-    String id,
-    String question,
-    List<String> options,
-    String answer,
+    String? id,
+    String? question,
+    List<String>? options,
+    String? answer,
   }) {
     return Question(
       id: id ?? this.id,
@@ -39,7 +39,7 @@ class Question {
 
   /* Give a man a program, frustrate him for a day.
 Teach a man to program, frustrate him for a lifetime */
-  factory Question.fromMap(Map<String, dynamic> map) {
+  factory Question.fromMap(Map<String?, dynamic> map) {
     return Question(
       id: map['\$id'],
       question: map['question'],

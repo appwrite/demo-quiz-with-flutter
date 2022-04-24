@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               child: Text(
                 "Start Quizeee",
-                style: Theme.of(context).textTheme.button.copyWith(
+                style: Theme.of(context).textTheme.button!.copyWith(
                       fontSize: 30.0,
                       color: Colors.white,
                     ),

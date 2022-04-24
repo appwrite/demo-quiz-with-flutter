@@ -9,13 +9,13 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Question> questions;
-  bool loading;
+  List<Question>? questions;
+  late bool loading;
 
-  Map<String, String> _answers;
+  late Map<String?, String?> _answers;
   int score = 0;
   int currentPage = 0;
-  PageController _controller;
+  PageController? _controller;
 
   @override
   void initState() {
@@ -36,8 +36,8 @@ class _QuizPageState extends State<QuizPage> {
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
       final res = await db.listDocuments(collectionId: AppConstsnts.collection);
-      questions = res.convertTo<Question>((q) => Question.fromMap(q));
-      questions.shuffle();
+      questions = res.convertTo<Question>((q) => Question.fromMap(q as Map<String?, dynamic>));
+      questions!.shuffle();
     } on AppwriteException catch (e) {
       print(e);
     } finally {
@@ -58,23 +58,23 @@ class _QuizPageState extends State<QuizPage> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : questions != null && questions.isNotEmpty
+          : questions != null && questions!.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: PageView.builder(
-                    itemCount: questions.length,
+                    itemCount: questions!.length,
                     itemBuilder: (context, index) {
-                      final question = questions[index];
+                      final question = questions![index];
                       return Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              question.question,
+                              question.question!,
                               style: Theme.of(context).textTheme.headline5,
                             ),
                             const SizedBox(height: 10.0),
-                            ...question.options.map(
+                            ...question.options!.map(
                               (opt) => Card(
                                 color: _getColor(question, opt),
                                 elevation: 1,
@@ -85,7 +85,7 @@ class _QuizPageState extends State<QuizPage> {
                                   groupValue: _answers[question.id],
                                   onChanged: _answers[question.id] != null
                                       ? null
-                                      : (opt) {
+                                      : (dynamic opt) {
                                           if (opt == question.answer)
                                             score += 5;
                                           setState(() {
@@ -111,7 +111,7 @@ class _QuizPageState extends State<QuizPage> {
                   child: Text("Some error! Check console"),
                 ),
       /* A language that doesn't affect the way you think about programming is not worth knowing. */
-      bottomNavigationBar: (questions != null && questions.isNotEmpty)
+      bottomNavigationBar: (questions != null && questions!.isNotEmpty)
           ? BottomAppBar(
               child: Container(
                 height: 60.0,
@@ -122,12 +122,12 @@ class _QuizPageState extends State<QuizPage> {
                       onPressed: currentPage <= 0
                           ? null
                           : () {
-                              _controller.jumpToPage(currentPage - 1);
+                              _controller!.jumpToPage(currentPage - 1);
                             },
                       child: Text("Prev"),
                     ),
                     const SizedBox(width: 10.0),
-                    (currentPage == questions.length - 1)
+                    (currentPage == questions!.length - 1)
                         ? ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context);
@@ -135,10 +135,10 @@ class _QuizPageState extends State<QuizPage> {
                             child: Text("Done"),
                           )
                         : ElevatedButton(
-                            onPressed: currentPage >= questions.length - 1
+                            onPressed: currentPage >= questions!.length - 1
                                 ? null
                                 : () {
-                                    _controller.jumpToPage(currentPage + 1);
+                                    _controller!.jumpToPage(currentPage + 1);
                                   },
                             child: Text("Next"),
                           ),

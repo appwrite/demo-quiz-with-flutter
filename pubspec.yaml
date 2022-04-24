@@ -6,12 +6,14 @@ version: 1.0.0+1
 # Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program.
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   appwrite: ^4.0.2
+  url_launcher: ^6.1.0
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
