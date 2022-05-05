@@ -18,5 +18,4 @@ class MyApp extends StatelessWidget {
       home: BuiltWithAppwriteWrapper(child: HomePage()),
     );
   }
-  /* Programs must be written for people to read, and only incidentally for machines to execute. */
 }
