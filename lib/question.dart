@@ -1,32 +1,21 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
+import 'package:appwrite/models.dart';
+import 'package:equatable/equatable.dart';
 
-class Question {
-  String? id;
-  String? question;
-  List<String>? options;
-  String? answer;
-  Question({
-    this.id,
-    this.question,
-    this.options,
-    this.answer,
+class Question extends Equatable {
+  //
+  final String id;
+  final String question;
+  final List<String> options;
+  final String answer;
+  //
+  const Question({
+    required this.id,
+    required this.question,
+    required this.options,
+    required this.answer,
   });
-
-  Question copyWith({
-    String? id,
-    String? question,
-    List<String>? options,
-    String? answer,
-  }) {
-    return Question(
-      id: id ?? this.id,
-      question: question ?? this.question,
-      options: options ?? this.options,
-      answer: answer ?? this.answer,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -39,6 +28,15 @@ class Question {
 
   /* Give a man a program, frustrate him for a day.
 Teach a man to program, frustrate him for a lifetime */
+  factory Question.fromModel(Document document) {
+    return Question(
+      id: document.$id,
+      question: document.data['question'],
+      options: List<String>.from(document.data['options']),
+      answer: document.data['answer']
+    );
+  }
+
   factory Question.fromMap(Map<String?, dynamic> map) {
     return Question(
       id: map['\$id'],
@@ -50,29 +48,15 @@ Teach a man to program, frustrate him for a lifetime */
 
   String toJson() => json.encode(toMap());
 
-  factory Question.fromJson(String source) => Question.fromMap(json.decode(source));
+  factory Question.fromJson(String source) =>
+      Question.fromMap(json.decode(source));
 
   @override
   String toString() {
     return 'Question(id: $id, question: $question, options: $options, answer: $answer)';
   }
-  
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is Question &&
-      other.id == id &&
-      other.question == question &&
-      listEquals(other.options, options) &&
-      other.answer == answer;
-  }
 
+  /// Equality Operator
   @override
-  int get hashCode {
-    return id.hashCode ^
-      question.hashCode ^
-      options.hashCode ^
-      answer.hashCode;
-  }
+  List<Object> get props => [id, question, options, answer];
 }
