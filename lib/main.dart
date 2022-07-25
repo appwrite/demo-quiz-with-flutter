@@ -4,10 +4,12 @@ import 'package:flutter_appwrite_quizeee/built_with_appwrite_wrapper.dart';
 import 'home.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: BuiltWithAppwriteWrapper(child: HomePage()),
+      home: const BuiltWithAppwriteWrapper(child: HomePage()),
     );
   }
 }

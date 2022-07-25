@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appwrite_quizeee/constants.dart';
 import 'package:flutter_appwrite_quizeee/question.dart';
@@ -46,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
 
       questions!.shuffle();
     } on AppwriteException catch (e) {
-      print(e);
+      if(kDebugMode) print(e);
     } finally {
       setState(() {
         loading = false;
@@ -62,7 +63,7 @@ class _QuizPageState extends State<QuizPage> {
         title: Text("Score: $score"),
       ),
       body: loading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : questions != null && questions!.isNotEmpty
@@ -72,7 +73,7 @@ class _QuizPageState extends State<QuizPage> {
                     itemCount: questions!.length,
                     itemBuilder: (context, index) {
                       final question = questions![index];
-                      return Container(
+                      return SizedBox(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -93,8 +94,10 @@ class _QuizPageState extends State<QuizPage> {
                                   onChanged: _answers[question.id] != null
                                       ? null
                                       : (dynamic opt) {
-                                          if (opt == question.answer)
+                                          if (opt == question.answer) {
                                             score += 5;
+                                          }
+
                                           setState(() {
                                             _answers[question.id] = opt;
                                           });
@@ -114,13 +117,13 @@ class _QuizPageState extends State<QuizPage> {
                     },
                   ),
                 )
-              : Container(
+              : const SizedBox(
                   child: Text("Some error! Check console"),
                 ),
       /* A language that doesn't affect the way you think about programming is not worth knowing. */
       bottomNavigationBar: (questions != null && questions!.isNotEmpty)
           ? BottomAppBar(
-              child: Container(
+              child: SizedBox(
                 height: 60.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +134,7 @@ class _QuizPageState extends State<QuizPage> {
                           : () {
                               _controller!.jumpToPage(currentPage - 1);
                             },
-                      child: Text("Prev"),
+                      child: const Text("Prev"),
                     ),
                     const SizedBox(width: 10.0),
                     (currentPage == questions!.length - 1)
@@ -139,7 +142,7 @@ class _QuizPageState extends State<QuizPage> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text("Done"),
+                            child: const Text("Done"),
                           )
                         : ElevatedButton(
                             onPressed: currentPage >= questions!.length - 1
@@ -147,7 +150,7 @@ class _QuizPageState extends State<QuizPage> {
                                 : () {
                                     _controller!.jumpToPage(currentPage + 1);
                                   },
-                            child: Text("Next"),
+                            child: const Text("Next"),
                           ),
                   ],
                 ),
