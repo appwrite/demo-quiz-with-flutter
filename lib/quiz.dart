@@ -38,7 +38,12 @@ class _QuizPageState extends State<QuizPage> {
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
       final res = await db.listDocuments(collectionId: AppConstsnts.collection);
-      questions = res.convertTo<Question>((q) => Question.fromMap(q as Map<String?, dynamic>));
+
+      // Convert using Model instead
+      questions = res.documents.isEmpty
+          ? []
+          : res.documents.map((e) => Question.fromModel(e)).toList();
+
       questions!.shuffle();
     } on AppwriteException catch (e) {
       print(e);
@@ -72,11 +77,11 @@ class _QuizPageState extends State<QuizPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              question.question!,
+                              question.question,
                               style: Theme.of(context).textTheme.headline5,
                             ),
                             const SizedBox(height: 10.0),
-                            ...question.options!.map(
+                            ...question.options.map(
                               (opt) => Card(
                                 color: _getColor(question, opt),
                                 elevation: 1,
