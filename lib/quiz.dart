@@ -4,8 +4,10 @@ import 'package:flutter_appwrite_quizeee/constants.dart';
 import 'package:flutter_appwrite_quizeee/question.dart';
 
 class QuizPage extends StatefulWidget {
+  const QuizPage({Key? key}) : super(key: key);
+
   @override
-  _QuizPageState createState() => _QuizPageState();
+  State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
@@ -32,7 +34,7 @@ class _QuizPageState extends State<QuizPage> {
     Client client = Client(endPoint: AppConstsnts.endPoint);
     client.setProject(AppConstsnts.project);
 
-    Database db = Database(client);
+    Databases db = Databases(client, databaseId: AppConstsnts.databaseID);
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
       final res = await db.listDocuments(collectionId: AppConstsnts.collection);
