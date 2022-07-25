@@ -19,6 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   dart_appwrite: null
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true
