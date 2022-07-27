@@ -13,9 +13,9 @@ void main() async {
   File json = File('./quiz_app_questions.json');
   final questions = jsonDecode(json.readAsStringSync());
 
-  Databases db = Databases(client, databaseId: 'unique()');
+  Databases db = Databases(client, databaseId: 'default');
 
-  db.create(name: 'Quizy'); // added funky name
+  await db.create(name: 'default'); // added funky name
 
   const collectionId = 'quiz_questions';
   await db.createCollection(
