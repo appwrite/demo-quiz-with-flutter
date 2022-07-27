@@ -13,7 +13,10 @@ void main() async {
   File json = File('./quiz_app_questions.json');
   final questions = jsonDecode(json.readAsStringSync());
 
-  Databases db = Databases(client, databaseId: 'DATABASE ID');
+  Databases db = Databases(client, databaseId: 'unique()');
+
+  db.create(name: 'Quizy'); // added funky name
+
   const collectionId = 'quiz_questions';
   await db.createCollection(
       collectionId: collectionId,
@@ -35,7 +38,7 @@ void main() async {
 
   for (final question in questions) {
     await db.createDocument(
-      documentId: "unique()",
+        documentId: "unique()",
         collectionId: collectionId,
         data: question,
         read: ['*'],
