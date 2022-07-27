@@ -15,7 +15,7 @@ void main() async {
 
   Databases db = Databases(client, databaseId: 'default');
 
-  await db.create(name: 'default'); // added funky name
+  await db.create(name: 'default');
 
   const collectionId = 'quiz_questions';
   await db.createCollection(
