@@ -29,14 +29,15 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {
       loading = true;
     });
-    Client client = Client(endPoint: AppConstsnts.endPoint);
-    client.setProject(AppConstsnts.project);
+    Client client = Client(endPoint: AppConstants.endPoint);
+    client.setProject(AppConstants.project);
 
     Database db = Database(client);
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
-      final res = await db.listDocuments(collectionId: AppConstsnts.collection);
-      questions = res.convertTo<Question>((q) => Question.fromMap(q as Map<String?, dynamic>));
+      final res = await db.listDocuments(collectionId: AppConstants.collection);
+      questions = res.convertTo<Question>(
+          (q) => Question.fromMap(q as Map<String?, dynamic>));
       questions!.shuffle();
     } on AppwriteException catch (e) {
       print(e);
