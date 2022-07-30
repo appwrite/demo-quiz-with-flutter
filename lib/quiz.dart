@@ -32,13 +32,13 @@ class _QuizPageState extends State<QuizPage> {
     setState(() {
       loading = true;
     });
-    Client client = Client(endPoint: AppConstsnts.endPoint);
-    client.setProject(AppConstsnts.project);
+    Client client = Client(endPoint: AppConstants.endPoint);
+    client.setProject(AppConstants.project);
 
-    Databases db = Databases(client, databaseId: AppConstsnts.database);
+    Databases db = Databases(client, databaseId: AppConstants.database);
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
-      final res = await db.listDocuments(collectionId: AppConstsnts.collection);
+      final res = await db.listDocuments(collectionId: AppConstants.collection);
 
       // Convert using Model instead
       questions = res.documents.isEmpty
@@ -73,40 +73,38 @@ class _QuizPageState extends State<QuizPage> {
                     itemCount: questions!.length,
                     itemBuilder: (context, index) {
                       final question = questions![index];
-                      return SizedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              question.question,
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                            const SizedBox(height: 10.0),
-                            ...question.options.map(
-                              (opt) => Card(
-                                color: _getColor(question, opt),
-                                elevation: 1,
-                                clipBehavior: Clip.antiAlias,
-                                child: RadioListTile(
-                                  value: opt,
-                                  title: Text(opt),
-                                  groupValue: _answers[question.id],
-                                  onChanged: _answers[question.id] != null
-                                      ? null
-                                      : (dynamic opt) {
-                                          if (opt == question.answer) {
-                                            score += 5;
-                                          }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            question.question,
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          const SizedBox(height: 10.0),
+                          ...question.options.map(
+                            (opt) => Card(
+                              color: _getColor(question, opt),
+                              elevation: 1,
+                              clipBehavior: Clip.antiAlias,
+                              child: RadioListTile(
+                                value: opt,
+                                title: Text(opt),
+                                groupValue: _answers[question.id],
+                                onChanged: _answers[question.id] != null
+                                    ? null
+                                    : (dynamic opt) {
+                                        if (opt == question.answer) {
+                                          score += 5;
+                                        }
 
-                                          setState(() {
-                                            _answers[question.id] = opt;
-                                          });
-                                        },
-                                ),
+                                        setState(() {
+                                          _answers[question.id] = opt;
+                                        });
+                                      },
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       );
                     },
                     controller: _controller,
@@ -117,9 +115,7 @@ class _QuizPageState extends State<QuizPage> {
                     },
                   ),
                 )
-              : const SizedBox(
-                  child: Text("Some error! Check console"),
-                ),
+              : const Text("Some error! Check console"),
       /* A language that doesn't affect the way you think about programming is not worth knowing. */
       bottomNavigationBar: (questions != null && questions!.isNotEmpty)
           ? BottomAppBar(
