@@ -26,23 +26,38 @@ void main() async {
       write: ["role:member"]);
 
   await db.createStringAttribute(
-      collectionId: collectionId, key: 'question', size: 255, xrequired: true);
+    collectionId: collectionId,
+    key: 'question',
+    size: 255,
+    xrequired: true,
+  );
+
   await db.createStringAttribute(
-      collectionId: collectionId,
-      key: 'options',
-      size: 255,
-      xrequired: false,
-      array: true);
+    collectionId: collectionId,
+    key: 'options',
+    size: 255,
+    xrequired: false,
+    array: true,
+  );
+
   await db.createStringAttribute(
-      collectionId: collectionId, key: 'answer', size: 255, xrequired: true);
+    collectionId: collectionId,
+    key: 'answer',
+    size: 255,
+    xrequired: true,
+  );
+
+  await Future.delayed(const Duration(seconds: 2));
 
   for (final question in questions) {
     await db.createDocument(
-        documentId: "unique()",
-        collectionId: collectionId,
-        data: question,
-        read: ['role:all'],
-        write: ['role:member']);
+      documentId: "unique()",
+      collectionId: collectionId,
+      data: question,
+      read: ['role:all'],
+      write: ['role:member'],
+    );
+    
     print(question);
   }
 
