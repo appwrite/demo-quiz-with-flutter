@@ -41,7 +41,7 @@ void main() async {
         documentId: "unique()",
         collectionId: collectionId,
         data: question,
-        read: ['*'],
+        read: ['role:all'],
         write: ['role:member']);
     print(question);
   }
