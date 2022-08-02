@@ -1,11 +1,14 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_appwrite_quizeee/constants.dart';
 import 'package:flutter_appwrite_quizeee/question.dart';
 
 class QuizPage extends StatefulWidget {
+  const QuizPage({Key? key}) : super(key: key);
+
   @override
-  _QuizPageState createState() => _QuizPageState();
+  State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
@@ -32,15 +35,19 @@ class _QuizPageState extends State<QuizPage> {
     Client client = Client(endPoint: AppConstants.endPoint);
     client.setProject(AppConstants.project);
 
-    Database db = Database(client);
+    Databases db = Databases(client, databaseId: AppConstants.database);
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
       final res = await db.listDocuments(collectionId: AppConstants.collection);
-      questions = res.convertTo<Question>(
-          (q) => Question.fromMap(q as Map<String?, dynamic>));
+
+      // Convert using Model instead
+      questions = res.documents.isEmpty
+          ? []
+          : res.documents.map((e) => Question.fromModel(e)).toList();
+
       questions!.shuffle();
     } on AppwriteException catch (e) {
-      print(e);
+      if(kDebugMode) print(e);
     } finally {
       setState(() {
         loading = false;
@@ -56,7 +63,7 @@ class _QuizPageState extends State<QuizPage> {
         title: Text("Score: $score"),
       ),
       body: loading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : questions != null && questions!.isNotEmpty
@@ -66,38 +73,38 @@ class _QuizPageState extends State<QuizPage> {
                     itemCount: questions!.length,
                     itemBuilder: (context, index) {
                       final question = questions![index];
-                      return Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              question.question!,
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                            const SizedBox(height: 10.0),
-                            ...question.options!.map(
-                              (opt) => Card(
-                                color: _getColor(question, opt),
-                                elevation: 1,
-                                clipBehavior: Clip.antiAlias,
-                                child: RadioListTile(
-                                  value: opt,
-                                  title: Text(opt),
-                                  groupValue: _answers[question.id],
-                                  onChanged: _answers[question.id] != null
-                                      ? null
-                                      : (dynamic opt) {
-                                          if (opt == question.answer)
-                                            score += 5;
-                                          setState(() {
-                                            _answers[question.id] = opt;
-                                          });
-                                        },
-                                ),
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            question.question,
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          const SizedBox(height: 10.0),
+                          ...question.options.map(
+                            (opt) => Card(
+                              color: _getColor(question, opt),
+                              elevation: 1,
+                              clipBehavior: Clip.antiAlias,
+                              child: RadioListTile(
+                                value: opt,
+                                title: Text(opt),
+                                groupValue: _answers[question.id],
+                                onChanged: _answers[question.id] != null
+                                    ? null
+                                    : (dynamic opt) {
+                                        if (opt == question.answer) {
+                                          score += 5;
+                                        }
+
+                                        setState(() {
+                                          _answers[question.id] = opt;
+                                        });
+                                      },
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       );
                     },
                     controller: _controller,
@@ -108,13 +115,11 @@ class _QuizPageState extends State<QuizPage> {
                     },
                   ),
                 )
-              : Container(
-                  child: Text("Some error! Check console"),
-                ),
+              : const Text("Some error! Check console"),
       /* A language that doesn't affect the way you think about programming is not worth knowing. */
       bottomNavigationBar: (questions != null && questions!.isNotEmpty)
           ? BottomAppBar(
-              child: Container(
+              child: SizedBox(
                 height: 60.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +130,7 @@ class _QuizPageState extends State<QuizPage> {
                           : () {
                               _controller!.jumpToPage(currentPage - 1);
                             },
-                      child: Text("Prev"),
+                      child: const Text("Prev"),
                     ),
                     const SizedBox(width: 10.0),
                     (currentPage == questions!.length - 1)
@@ -133,7 +138,7 @@ class _QuizPageState extends State<QuizPage> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text("Done"),
+                            child: const Text("Done"),
                           )
                         : ElevatedButton(
                             onPressed: currentPage >= questions!.length - 1
@@ -141,7 +146,7 @@ class _QuizPageState extends State<QuizPage> {
                                 : () {
                                     _controller!.jumpToPage(currentPage + 1);
                                   },
-                            child: Text("Next"),
+                            child: const Text("Next"),
                           ),
                   ],
                 ),

@@ -13,9 +13,12 @@ void main() async {
   File json = File('./quiz_app_questions.json');
   final questions = jsonDecode(json.readAsStringSync());
 
-  Database db = Database(client);
-  final collectionId = 'quiz_questions';
-  final res = await db.createCollection(
+  Databases db = Databases(client, databaseId: 'default');
+
+  await db.create(name: 'default');
+
+  const collectionId = 'quiz_questions';
+  await db.createCollection(
       collectionId: collectionId,
       name: "Quiz Questions",
       permission: 'collection',
@@ -23,23 +26,38 @@ void main() async {
       write: ["role:member"]);
 
   await db.createStringAttribute(
-      collectionId: collectionId, key: 'question', size: 255, xrequired: true);
+    collectionId: collectionId,
+    key: 'question',
+    size: 255,
+    xrequired: true,
+  );
+
   await db.createStringAttribute(
-      collectionId: collectionId,
-      key: 'options',
-      size: 255,
-      xrequired: false,
-      array: true);
+    collectionId: collectionId,
+    key: 'options',
+    size: 255,
+    xrequired: false,
+    array: true,
+  );
+
   await db.createStringAttribute(
-      collectionId: collectionId, key: 'answer', size: 255, xrequired: true);
+    collectionId: collectionId,
+    key: 'answer',
+    size: 255,
+    xrequired: true,
+  );
+
+  await Future.delayed(const Duration(seconds: 2));
 
   for (final question in questions) {
     await db.createDocument(
       documentId: "unique()",
-        collectionId: collectionId,
-        data: question,
-        read: ['*'],
-        write: ['role:member']);
+      collectionId: collectionId,
+      data: question,
+      read: ['role:all'],
+      write: ['role:member'],
+    );
+    
     print(question);
   }
 

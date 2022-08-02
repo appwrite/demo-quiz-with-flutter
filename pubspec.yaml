@@ -11,14 +11,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  appwrite: ^4.0.2
+  appwrite: ^6.0.0
   url_launcher: ^6.1.0
   flutter_svg: ^1.0.3
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   dart_appwrite: null
+  flutter_lints: ^2.0.1
 
 flutter:
   uses-material-design: true
