@@ -34,7 +34,6 @@ class _QuizPageState extends State<QuizPage> {
     });
     Client client = Client(endPoint: AppConstants.endPoint);
     client.setProject(AppConstants.project);
-    client.setSelfSigned();
 
     Databases db = Databases(client);
 
