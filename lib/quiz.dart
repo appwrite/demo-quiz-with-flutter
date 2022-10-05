@@ -36,7 +36,6 @@ class _QuizPageState extends State<QuizPage> {
     client.setProject(AppConstants.project);
 
     Databases db = Databases(client, databaseId: AppConstants.database);
-    /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
       final res = await db.listDocuments(collectionId: AppConstants.collection);
 
