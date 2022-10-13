@@ -24,7 +24,15 @@ class BuiltWithAppwriteWrapper extends StatelessWidget {
                 'https://appwrite.io',
               );
               //
-              canLaunch ? launchUrl(Uri.parse('https://appwrite.io')) : null;
+              canLaunch
+                  ? launchUrl(
+                      Uri.parse('https://appwrite.io'),
+                      // Use mode to avoid problems to launch your url
+                      mode: LaunchMode.inAppWebView,
+                      // Using external Application you should have better performance
+                      // mode: LaunchMode.externalApplication,
+                    )
+                  : null;
               //
             },
             child: SvgPicture.asset('assets/built-with-appwrite-hr.svg'),
