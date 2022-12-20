@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  appwrite: ^6.0.0
+  appwrite: ^8.1.0
   url_launcher: ^6.1.0
   flutter_svg: ^1.0.3
   equatable: ^2.0.3

@@ -35,10 +35,11 @@ class _QuizPageState extends State<QuizPage> {
     Client client = Client(endPoint: AppConstants.endPoint);
     client.setProject(AppConstants.project);
 
-    Databases db = Databases(client, databaseId: AppConstants.database);
+    Databases db = Databases(client);
+
     /* I'm not a great programmer; I'm just a good programmer with great habits. */
     try {
-      final res = await db.listDocuments(collectionId: AppConstants.collection);
+      final res = await db.listDocuments(collectionId: AppConstants.collection , databaseId: AppConstants.database);
 
       // Convert using Model instead
       questions = res.documents.isEmpty
@@ -47,7 +48,7 @@ class _QuizPageState extends State<QuizPage> {
 
       questions!.shuffle();
     } on AppwriteException catch (e) {
-      if(kDebugMode) print(e);
+      if (kDebugMode) print(e);
     } finally {
       setState(() {
         loading = false;
