@@ -52,7 +52,7 @@
 	{
 		"question": "Is Flutter for Desktop stable?",
 		"options": [ "Yes", "No" ],
-		"answer": "No"
+		"answer": "Yes"
 	},
 	{
 		"question": "Is Flutter for Web stable?",

@@ -8,24 +8,25 @@ Client client = Client();
 void main() async {
   client
       .setEndpoint("https://demo.appwrite.io/v1")
-      .setProject("606d5bc9de604")
-      .setKey("f2a3580ec....3ed219ad");
+      .setProject("flutter-quiz")
+      .setKey("a8383987...14d09e5b");
   File json = File('./quiz_app_questions.json');
   final questions = jsonDecode(json.readAsStringSync());
+  const databaseId = 'quiz';
+  Databases db = Databases(client);
 
-  Databases db = Databases(client, databaseId: 'default');
-
-  await db.create(name: 'default');
+  await db.create(databaseId: databaseId, name: 'default');
 
   const collectionId = 'quiz_questions';
   await db.createCollection(
-      collectionId: collectionId,
-      name: "Quiz Questions",
-      permission: 'collection',
-      read: ["role:all"],
-      write: ["role:member"]);
+    databaseId: databaseId,
+    collectionId: collectionId,
+    name: "Quiz Questions",
+    permissions: [Permission.read(Role.any()), Permission.write(Role.users())],
+  );
 
   await db.createStringAttribute(
+    databaseId: databaseId,
     collectionId: collectionId,
     key: 'question',
     size: 255,
@@ -33,6 +34,7 @@ void main() async {
   );
 
   await db.createStringAttribute(
+    databaseId: databaseId,
     collectionId: collectionId,
     key: 'options',
     size: 255,
@@ -41,6 +43,7 @@ void main() async {
   );
 
   await db.createStringAttribute(
+    databaseId: databaseId,
     collectionId: collectionId,
     key: 'answer',
     size: 255,
@@ -51,13 +54,12 @@ void main() async {
 
   for (final question in questions) {
     await db.createDocument(
+      databaseId: databaseId,
       documentId: "unique()",
       collectionId: collectionId,
       data: question,
-      read: ['role:all'],
-      write: ['role:member'],
     );
-    
+
     print(question);
   }
 
